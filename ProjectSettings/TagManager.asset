@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Bouncy
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -43,4 +45,7 @@ TagManager:
     locked: 0
   - name: Character
     uniqueID: 1523054693
+    locked: 0
+  - name: Effects
+    uniqueID: 1180795237
     locked: 0

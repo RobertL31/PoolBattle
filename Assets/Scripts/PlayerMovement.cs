@@ -5,40 +5,24 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Collider2D characterCollider;
-    private Collider2D shieldCollider;
 
     public float mouvementSpeed = 10f;
+    public float rotationSpeed = 300f;
+
 
     void Start()
     {
-        for(int i=0; i<transform.childCount; ++i)
-        {
-            Transform child = transform.GetChild(i);
-            switch(child.name)
-            {
-                case "Character":
-                    characterCollider = child.GetComponent<Collider2D>();
-                    break;
-                case "Shield":
-                    shieldCollider = child.GetComponent<Collider2D>();
-                    break;
-            }
-        }
+
     }
 
-    void Update()
+    private void Update()
     {
-        //HandleCollision();
-
-        Vector3 position = transform.position;
+        Vector2 position = transform.position;
 
         // Point toward the cursor
-        Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        target.z = 0;
-        Debug.Log(target - position);
-        transform.LookAt(target - position);
-        
+        Vector2 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, target - position);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
 
         // Move to requested direction
         float horizontalMovement = Input.GetAxis("Horizontal");
